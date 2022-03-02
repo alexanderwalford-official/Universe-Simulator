@@ -53,8 +53,9 @@
     <UnityVersion>2020.3.27f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\UniverseController.cs" />
     <Compile Include="Assets\Scripts\AtomController.cs" />
+    <Compile Include="Assets\Scripts\UniverseController.cs" />
+    <Compile Include="Assets\Scripts\levelloader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

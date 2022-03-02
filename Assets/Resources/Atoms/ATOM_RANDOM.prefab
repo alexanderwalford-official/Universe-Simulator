@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 8740946639060273922}
   - component: {fileID: 8740946639060273981}
   - component: {fileID: 8740946639060273921}
+  - component: {fileID: 606331702438427306}
   m_Layer: 0
   m_Name: ATOM_RANDOM
-  m_TagString: Untagged
+  m_TagString: atom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8740946639060273980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -128,3 +129,19 @@ MonoBehaviour:
   IsotopeMass: 0
   MaxDistance: 100
   IsRandom: 1
+--- !u!54 &606331702438427306
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740946639060273980}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

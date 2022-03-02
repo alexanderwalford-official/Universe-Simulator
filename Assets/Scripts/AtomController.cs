@@ -23,7 +23,7 @@ public class AtomController : MonoBehaviour
     public bool IsLiquid = false;
     public bool IsSolid = false;
     public float IsotopeMass = 0;
-    public int MaxDistance = 100;
+    public int MaxDistance = 5;
     public bool IsRandom = false;
 
     // realtime vars
@@ -33,10 +33,13 @@ public class AtomController : MonoBehaviour
     bool DesinationXReached = false;
     bool DesinationYReached = false;
     bool DesinationZReached = false;
+    GameObject UniverseManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        UniverseManager = GameObject.Find("Universe Controller");
+
         if (IsRandom)
         {
             // set the colour randomly, will be influenced by its properties in the future
@@ -58,6 +61,32 @@ public class AtomController : MonoBehaviour
         TargetZLoc = Random.Range(0, MaxDistance);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        // only increments when 2 atoms collider with one another
+        if (collision.gameObject.tag == "atom")
+        {
+            UniverseManager.gameObject.GetComponent<UniverseController>().CollissionCounter++;
+
+            // make the atoms stick together
+
+            // creates joint
+            FixedJoint joint = gameObject.AddComponent<FixedJoint>();
+            // sets joint position to point of contact
+            joint.anchor = collision.contacts[0].point;
+            // conects the joint to the other object
+            joint.connectedBody = collision.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
+            // Stops objects from continuing to collide and creating more joints
+            joint.enableCollision = false;
+        }
+        else
+        {
+            // hit container, redirect
+            gameObject.GetComponent<Rigidbody>().AddForce(collision.contacts[0].normal * IsotopeMass / 10);
+            Invoke("StopBounce", 0.3f);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -75,12 +104,12 @@ public class AtomController : MonoBehaviour
             if (gameObject.transform.position.x > TargetXLoc)
             {
                 // negative X movement
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x - MovementSpeed + IsotopeMass * 2 * Time.deltaTime, gameObject.transform.position.y, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - MovementSpeed, gameObject.transform.position.y, gameObject.transform.position.z);
             }
             else
             {
                 // positive X movement
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x + MovementSpeed - IsotopeMass / 2 * Time.deltaTime, gameObject.transform.position.y, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + MovementSpeed, gameObject.transform.position.y, gameObject.transform.position.z);
             }   
         }
         else
@@ -92,12 +121,12 @@ public class AtomController : MonoBehaviour
             if (gameObject.transform.position.y > TargetYLoc)
             {
                 // negative Y
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - MovementSpeed + IsotopeMass / 2 * Time.deltaTime, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - MovementSpeed, gameObject.transform.position.z);
             }
             else
             {
                 // positive Y
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + MovementSpeed - IsotopeMass / 2 * Time.deltaTime, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + MovementSpeed, gameObject.transform.position.z);
             }
         }
         else
@@ -109,12 +138,12 @@ public class AtomController : MonoBehaviour
             if (gameObject.transform.position.z > TargetZLoc)
             {
                 // negative z
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - MovementSpeed + IsotopeMass / 2 * Time.deltaTime);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - MovementSpeed);
             }
             else
             {
                 // positive z
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + MovementSpeed - IsotopeMass / 2 * Time.deltaTime);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + MovementSpeed);
             }     
         }
         else
