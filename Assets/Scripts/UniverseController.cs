@@ -15,7 +15,7 @@ public class UniverseController : MonoBehaviour
 
     // public simulation settings
     public string SimulationSize = "medium";
-    public float SimulationSpeed = 1.0f;
+    public float SimulationSpeed = 0.8f;
     public int MaxAtoms = 999999999;
     public float AtomSpawnRate = 0.1f;
     public string[] AtomsList;
@@ -25,9 +25,11 @@ public class UniverseController : MonoBehaviour
     public int TimeElapsed = 0;
     public bool ShowTrails = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = SimulationSpeed;
         if (SimulationSize == "small")
         {
             UniverseContainerSmall.SetActive(true);

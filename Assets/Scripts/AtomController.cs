@@ -108,7 +108,7 @@ public class AtomController : MonoBehaviour
             {
                 // explosion, due to 2 unstable atoms colliding
                 // force, position, radius, speed
-                collision.rigidbody.AddExplosionForce(10, collision.gameObject.transform.position, 2, 1.0f);
+                collision.rigidbody.AddExplosionForce(2, collision.gameObject.transform.position, 2, 1.0f);
                 UniverseManager.gameObject.GetComponent<UniverseController>().CollissionExplosionCounter++;
             }
             else
@@ -141,12 +141,12 @@ public class AtomController : MonoBehaviour
             if (gameObject.transform.position.x > TargetXLoc)
             {
                 // negative X movement
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x - MovementSpeed, gameObject.transform.position.y, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - MovementSpeed * Time.deltaTime, gameObject.transform.position.y, gameObject.transform.position.z);
             }
             else
             {
                 // positive X movement
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x + MovementSpeed, gameObject.transform.position.y, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + MovementSpeed * Time.deltaTime, gameObject.transform.position.y, gameObject.transform.position.z);
             }   
         }
         else
@@ -158,12 +158,12 @@ public class AtomController : MonoBehaviour
             if (gameObject.transform.position.y > TargetYLoc)
             {
                 // negative Y
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - MovementSpeed, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - MovementSpeed * Time.deltaTime, gameObject.transform.position.z);
             }
             else
             {
                 // positive Y
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + MovementSpeed, gameObject.transform.position.z);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + MovementSpeed * Time.deltaTime, gameObject.transform.position.z);
             }
         }
         else
@@ -175,12 +175,12 @@ public class AtomController : MonoBehaviour
             if (gameObject.transform.position.z > TargetZLoc)
             {
                 // negative z
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - MovementSpeed);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - MovementSpeed * Time.deltaTime);
             }
             else
             {
                 // positive z
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + MovementSpeed);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + MovementSpeed * Time.deltaTime);
             }     
         }
         else

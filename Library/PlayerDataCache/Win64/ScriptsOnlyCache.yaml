@@ -12,10 +12,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -70,25 +68,25 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1484}
+      Script: {instanceID: 1486}
     - Class: 114
-      Script: {instanceID: 1578}
+      Script: {instanceID: 1580}
     - Class: 114
-      Script: {instanceID: 2002}
+      Script: {instanceID: 2004}
     - Class: 114
-      Script: {instanceID: 2122}
+      Script: {instanceID: 2124}
     - Class: 114
-      Script: {instanceID: 2290}
+      Script: {instanceID: 2292}
     - Class: 114
-      Script: {instanceID: 2402}
+      Script: {instanceID: 2404}
     - Class: 114
-      Script: {instanceID: 2568}
+      Script: {instanceID: 2570}
     - Class: 114
-      Script: {instanceID: 2752}
+      Script: {instanceID: 2754}
     - Class: 114
-      Script: {instanceID: 2838}
+      Script: {instanceID: 2840}
     - Class: 114
-      Script: {instanceID: 3188}
+      Script: {instanceID: 3190}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -135,25 +133,25 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1484}
+      Script: {instanceID: 1486}
     - Class: 114
-      Script: {instanceID: 2002}
+      Script: {instanceID: 2004}
     - Class: 114
-      Script: {instanceID: 2290}
+      Script: {instanceID: 2292}
     - Class: 114
-      Script: {instanceID: 2402}
+      Script: {instanceID: 2404}
     - Class: 114
-      Script: {instanceID: 2568}
+      Script: {instanceID: 2570}
     - Class: 114
-      Script: {instanceID: 2640}
+      Script: {instanceID: 2642}
     - Class: 114
-      Script: {instanceID: 2752}
+      Script: {instanceID: 2754}
     - Class: 114
-      Script: {instanceID: 2838}
+      Script: {instanceID: 2840}
     - Class: 114
-      Script: {instanceID: 3476}
+      Script: {instanceID: 3478}
     - Class: 114
-      Script: {instanceID: 3960}
+      Script: {instanceID: 3962}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -621,4 +619,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/title.unity
   - Assets/Scenes/CollisionSim.unity
-  playerPath: C:/Users/alexa/Downloads/Simulation/Universe Simulator.exe
+  playerPath: C:/Users/alexa/Downloads/Universe Simulation/Universe Simulator.exe
