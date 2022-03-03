@@ -115,14 +115,14 @@ public class AtomController : MonoBehaviour
             {
                 // atoms has 8 electrons, no need to form a compound
                 // make them smash off each other
-                gameObject.GetComponent<Rigidbody>().AddForce(collision.contacts[0].normal * IsotopeMass / 10);
+                gameObject.GetComponent<Rigidbody>().AddForce(collision.contacts[0].normal * IsotopeMass);
             }
             
         }
         else
         {
             // hit container, redirect
-            gameObject.GetComponent<Rigidbody>().AddForce(collision.contacts[0].normal * IsotopeMass / 10);
+            gameObject.GetComponent<Rigidbody>().AddForce(collision.contacts[0].normal * IsotopeMass);
         }
     }
     // Update is called once per frame

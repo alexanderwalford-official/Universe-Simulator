@@ -130,7 +130,7 @@ MonoBehaviour:
   IsGas: 0
   IsLiquid: 0
   IsSolid: 0
-  IsotopeMass: 1.007825
+  IsotopeMass: 9.012182
   MaxDistance: 10
   IsRandom: 0
   IsPartCompound: 0

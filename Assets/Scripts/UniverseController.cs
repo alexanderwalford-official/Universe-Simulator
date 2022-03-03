@@ -24,11 +24,17 @@ public class UniverseController : MonoBehaviour
     public int CollissionExplosionCounter = 0;
     public int TimeElapsed = 0;
     public bool ShowTrails = false;
-
+    public Dropdown DropDownMenuSize;
+    public Dropdown DropDownMenuSpeed;
+    public Dropdown DropDownMenuMax;
 
     // Start is called before the first frame update
     void Start()
     {
+        SimulationSize = DropDownMenuSize.options[DropDownMenuSize.value].text;
+        SimulationSpeed = float.Parse(DropDownMenuSpeed.options[DropDownMenuSpeed.value].text);
+        MaxAtoms = int.Parse(DropDownMenuMax.options[DropDownMenuMax.value].text);
+
         Time.timeScale = SimulationSpeed;
         if (SimulationSize == "small")
         {
@@ -46,7 +52,6 @@ public class UniverseController : MonoBehaviour
         {
             // assume infinate
         }
-
         StartCoroutine(AtomSpawner());
         StartCoroutine(TimeManager());
     }
@@ -66,14 +71,14 @@ public class UniverseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InformationText.text = "================\nSIMULATION DATA\n================ \nAtom Count: " + AtomCount.ToString() + "\nMolecular Bonds: " + CollissionCounter.ToString() + "\nMolecular Rejections: " + CollissionExplosionCounter.ToString() + "\nTime Elapsed (sec): " + TimeElapsed.ToString() + "\nSimulation Speed: " + SimulationSpeed + "\nSimulation Size: " + SimulationSize;
+        InformationText.text = "================\nSIMULATION DATA\n================ \nAtom Count: " + AtomCount.ToString() + "/" + MaxAtoms + "\nMolecular Bonds: " + CollissionCounter.ToString() + "\nMolecular Rejections: " + CollissionExplosionCounter.ToString() + "\nTime Elapsed (sec): " + TimeElapsed.ToString() + "\nSimulation Speed: " + SimulationSpeed + "\nSimulation Size: " + SimulationSize;
     }
 
     IEnumerator TimeManager()
     {
         if (TimeElapsed.ToString().EndsWith("0"))
         {
-            MainCam.fieldOfView = 0.4f;
+            MainCam.fieldOfView = 0.5f;
         }
         else if (TimeElapsed.ToString().EndsWith("5"))
         {
@@ -106,7 +111,10 @@ public class UniverseController : MonoBehaviour
         // + 1 atoms
         AtomCount++;
 
-        // loop
-        StartCoroutine(AtomSpawner());
+        if (AtomCount != MaxAtoms)
+        {
+            // loop
+            StartCoroutine(AtomSpawner());
+        }
     }
 }
