@@ -21,6 +21,7 @@ public class UniverseController : MonoBehaviour
     public string[] AtomsList;
     public int AtomCount = 0;
     public int CollissionCounter = 0;
+    public int CollissionExplosionCounter = 0;
     public int TimeElapsed = 0;
     public bool ShowTrails = false;
 
@@ -63,7 +64,7 @@ public class UniverseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InformationText.text = "================\nSIMULATION DATA\n================ \nAtom Count: " + AtomCount.ToString() + "\nCollision Count (bonds): " + CollissionCounter.ToString() + "\nTime Elapsed (sec): " + TimeElapsed.ToString() + "\nSimulation Speed: " + SimulationSpeed + "\nSimulation Size: " + SimulationSize;
+        InformationText.text = "================\nSIMULATION DATA\n================ \nAtom Count: " + AtomCount.ToString() + "\nMolecular Bonds: " + CollissionCounter.ToString() + "\nMolecular Rejections: " + CollissionExplosionCounter.ToString() + "\nTime Elapsed (sec): " + TimeElapsed.ToString() + "\nSimulation Speed: " + SimulationSpeed + "\nSimulation Size: " + SimulationSize;
     }
 
     IEnumerator TimeManager()

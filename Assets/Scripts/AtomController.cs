@@ -14,6 +14,9 @@ public class AtomController : MonoBehaviour
     public float MagnativityRate = 0f;
     public float MovementSpeed = 1.0f; // * simulation speed
     public string Symbol = "";
+    public int ElectronCountInner = 0;
+    public int ElectronCountMiddle = 0;
+    public int ElectronCountOuter = 0;
     public int ElectronCount = 0;
     public int NeutronCount = 0;
     public int ProtonCount = 0;
@@ -25,6 +28,8 @@ public class AtomController : MonoBehaviour
     public float IsotopeMass = 0;
     public int MaxDistance = 5;
     public bool IsRandom = false;
+    public bool IsPartCompound = false;
+    public string CompoundName = "";
 
     // realtime vars
     int TargetXLoc;
@@ -49,12 +54,16 @@ public class AtomController : MonoBehaviour
         {
             // set the colour randomly, will be influenced by its properties in the future
             gameObject.GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
+            gameObject.GetComponent<TrailRenderer>().material.color = gameObject.GetComponent<MeshRenderer>().material.color;
 
             // set the properties
-            ElectronCount = Random.Range(0, 9999999);
-            NeutronCount = Random.Range(0, 9999999);
-            ProtonCount = Random.Range(0, 9999999);
+            ElectronCountInner = Random.Range(1, 2);
+            ElectronCountMiddle = Random.Range(1, 8);
+            ElectronCountOuter = Random.Range(1, 8);
+            NeutronCount = Random.Range(0, 8);
+            ProtonCount = Random.Range(0, 8);
             IsotopeMass = Random.Range(0f, 2f);
+            ElectronCount = ElectronCountInner + ElectronCountMiddle + ElectronCountOuter;
         }
         SetNewBounds();
     }
@@ -68,19 +77,47 @@ public class AtomController : MonoBehaviour
     {
         // only increments when 2 atoms collider with one another
         if (collision.gameObject.tag == "atom")
-        {
-            UniverseManager.gameObject.GetComponent<UniverseController>().CollissionCounter++;
+        {   
+            // fires if the electron count of the dominant particle is less than 8, and would be able to take all the electrons from the non-dominant particle
+            if (collision.gameObject.GetComponent<AtomController>().ElectronCountOuter < 8 && gameObject.GetComponent<AtomController>().ElectronCountOuter + collision.gameObject.GetComponent<AtomController>().ElectronCountOuter !> 8)
+            {
+                UniverseManager.gameObject.GetComponent<UniverseController>().CollissionCounter++;
 
-            // make the atoms stick together
+                // bond the atoms (compound)
 
-            // creates joint
-            FixedJoint joint = gameObject.AddComponent<FixedJoint>();
-            // sets joint position to point of contact
-            joint.anchor = collision.contacts[0].point;
-            // conects the joint to the other object
-            joint.connectedBody = collision.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
-            // Stops objects from continuing to collide and creating more joints
-            joint.enableCollision = false;
+                // atom has less than 8 atoms, considered unstable and seeking to gain electrons on its outer ring (compound)
+                FixedJoint joint = gameObject.AddComponent<FixedJoint>();
+                joint.anchor = collision.contacts[0].point;
+                joint.connectedBody = collision.contacts[0].otherCollider.transform.GetComponentInParent<Rigidbody>();
+                joint.enableCollision = false;
+
+                // set the destination of the child atom to that of the parent atom
+                gameObject.GetComponent<AtomController>().TargetXLoc = collision.gameObject.GetComponent<AtomController>().TargetXLoc;
+                gameObject.GetComponent<AtomController>().TargetYLoc = collision.gameObject.GetComponent<AtomController>().TargetYLoc;
+                gameObject.GetComponent<AtomController>().TargetZLoc = collision.gameObject.GetComponent<AtomController>().TargetZLoc;
+
+                // update the compound status boolean
+                gameObject.GetComponent<AtomController>().IsPartCompound = true;
+                collision.gameObject.GetComponent<AtomController>().IsPartCompound = true;
+
+                // update the compund name string
+                gameObject.GetComponent<AtomController>().CompoundName = collision.gameObject.GetComponent<AtomController>().Symbol + gameObject.GetComponent<AtomController>();
+                collision.gameObject.GetComponent<AtomController>().CompoundName = collision.gameObject.GetComponent<AtomController>().Symbol + gameObject.GetComponent<AtomController>();
+            }
+            else if (collision.gameObject.GetComponent<AtomController>().ElectronCountOuter < 8 && gameObject.GetComponent<AtomController>().ElectronCountOuter < 8)
+            {
+                // explosion, due to 2 unstable atoms colliding
+                // force, position, radius, speed
+                collision.rigidbody.AddExplosionForce(10, collision.gameObject.transform.position, 2, 1.0f);
+                UniverseManager.gameObject.GetComponent<UniverseController>().CollissionExplosionCounter++;
+            }
+            else
+            {
+                // atoms has 8 electrons, no need to form a compound
+                // make them smash off each other
+                gameObject.GetComponent<Rigidbody>().AddForce(collision.contacts[0].normal * IsotopeMass / 10);
+            }
+            
         }
         else
         {
@@ -91,9 +128,7 @@ public class AtomController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // move the atom to a random destination
-
         if (DesinationXReached && DesinationYReached && DesinationZReached)
         {
             SetNewBounds();
