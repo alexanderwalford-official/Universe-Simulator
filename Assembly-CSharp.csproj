@@ -56,6 +56,7 @@
     <Compile Include="Assets\Scripts\AtomController.cs" />
     <Compile Include="Assets\Scripts\UniverseController.cs" />
     <Compile Include="Assets\Scripts\levelloader.cs" />
+    <Compile Include="Assets\Scripts\SetWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

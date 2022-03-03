@@ -40,6 +40,11 @@ public class AtomController : MonoBehaviour
     {
         UniverseManager = GameObject.Find("Universe Controller");
 
+        if (UniverseManager.gameObject.GetComponent<UniverseController>().ShowTrails)
+        {
+            gameObject.GetComponent<TrailRenderer>().enabled = true;
+        }
+
         if (IsRandom)
         {
             // set the colour randomly, will be influenced by its properties in the future
@@ -53,14 +58,12 @@ public class AtomController : MonoBehaviour
         }
         SetNewBounds();
     }
-
     void SetNewBounds()
     {
         TargetXLoc = Random.Range(0, MaxDistance);
         TargetYLoc = Random.Range(0, MaxDistance);
         TargetZLoc = Random.Range(0, MaxDistance);
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         // only increments when 2 atoms collider with one another
@@ -83,13 +86,12 @@ public class AtomController : MonoBehaviour
         {
             // hit container, redirect
             gameObject.GetComponent<Rigidbody>().AddForce(collision.contacts[0].normal * IsotopeMass / 10);
-            Invoke("StopBounce", 0.3f);
         }
     }
-
     // Update is called once per frame
     void Update()
     {
+
         // move the atom to a random destination
 
         if (DesinationXReached && DesinationYReached && DesinationZReached)

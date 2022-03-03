@@ -22,6 +22,7 @@ public class UniverseController : MonoBehaviour
     public int AtomCount = 0;
     public int CollissionCounter = 0;
     public int TimeElapsed = 0;
+    public bool ShowTrails = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,18 @@ public class UniverseController : MonoBehaviour
         StartCoroutine(TimeManager());
     }
 
+    public void ToggleTrails ()
+    {
+        if (ShowTrails)
+        {
+            ShowTrails = false;
+        }
+        else
+        {
+            ShowTrails = true;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -57,11 +70,11 @@ public class UniverseController : MonoBehaviour
     {
         if (TimeElapsed.ToString().EndsWith("0"))
         {
-            MainCam.fieldOfView = 0.5f;
+            MainCam.fieldOfView = 0.4f;
         }
         else if (TimeElapsed.ToString().EndsWith("5"))
         {
-            MainCam.fieldOfView = 20f;
+            MainCam.fieldOfView = 10f;
         }
         else
         {
